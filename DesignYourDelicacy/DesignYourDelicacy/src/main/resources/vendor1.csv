@@ -1,0 +1,7 @@
+vendor_id,vendor_name,serial_num,item_name,item_desc,price
+100,Prism,10,South Indian Thali,"Rice,Dal,Sambar,Curd,Sweet",70
+100,Prism,11,North Indian Thali,"Chapathi,Dal,Raitha,Paneer Masala",80
+100,Prism,12,Kaju Panner Masala,"Kaju,Paneer and other added falvours",100
+200,Flavours,20,Roti,Plain Roti,20
+200,Flavours,21,Butter Roti,Butter Roti,25
+200,Flavours,22,Kaju Panner Masala,"Kaju,Paneer and other added falvours",100

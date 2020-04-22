@@ -30,7 +30,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 @EnableFeignClients
 @EnableEurekaClient
-//@RibbonClient(name="server", configuration = RibbonConfiguration.class)
+@RibbonClient(name="server", configuration = RibbonConfiguration.class)
 public class DesignYourDelicacyApplication {
 
 	public static void main(String[] args) {

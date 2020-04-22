@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="transaction")
@@ -21,13 +22,22 @@ public class Transaction {
 	
 	private long userid;
 	
+	
 	private long cardNumber;
 	
+	//@NotBlank(message = "Please enter cvv")
 	private String cvv;
 	
+	//@NotBlank(message = "Please enter expdate")
 	private String expdate;
 	
 	private String accountno;
+	
+	private String vendorId;
+	
+	private String itemName;
+	
+	private String transactiondate;
 
 	public long getTransid() {
 		return tid;
@@ -122,12 +132,56 @@ public class Transaction {
 		
 	}
 
+	/**
+	 * @return the vendorId
+	 */
+	public String getVendorId() {
+		return vendorId;
+	}
+
+	/**
+	 * @param vendorId the vendorId to set
+	 */
+	public void setVendorId(String vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	/**
+	 * @return the itemName
+	 */
+	public String getItemName() {
+		return itemName;
+	}
+
+	/**
+	 * @param itemName the itemName to set
+	 */
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	/**
+	 * @return the transactiondate
+	 */
+	public String getTransactiondate() {
+		return transactiondate;
+	}
+
+	/**
+	 * @param transactiondate the transactiondate to set
+	 */
+	public void setTransactiondate(String transactiondate) {
+		this.transactiondate = transactiondate;
+	}
+
 	@Override
 	public String toString() {
 		return "Transaction [tid=" + tid + ", amount=" + amount + ", price=" + price + ", userid=" + userid
 				+ ", cardNumber=" + cardNumber + ", cvv=" + cvv + ", expdate=" + expdate + ", accountno=" + accountno
-				+ "]";
+				+ ", vendorId=" + vendorId + ", itemName=" + itemName + ", transactiondate=" + transactiondate + "]";
 	}
+
+
 	
 	
 	

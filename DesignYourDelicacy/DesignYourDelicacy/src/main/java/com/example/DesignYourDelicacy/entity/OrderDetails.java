@@ -16,30 +16,30 @@ public class OrderDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int orderId;
 	private int orderAmount;
 	private String orderDate;
 	private String vendor;
 	private String itemName;
 
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "uid")
-	private User user = new User();
-	
-	
+	@JoinColumn(name="id")
+	private User user;
+	  
+
 
 	/**
-	 * @return the id
+	 * @return the orderId
 	 */
-	public int getId() {
-		return id;
+	public int getOrderId() {
+		return orderId;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param orderId the orderId to set
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	/**
@@ -115,8 +115,10 @@ public class OrderDetails {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", orderAmount=" + orderAmount + ", orderDate=" + orderDate + ", vendor=" + vendor
-				+ ", itemName=" + itemName + "]";
+		return "OrderDetails [orderId=" + orderId + ", orderAmount=" + orderAmount + ", orderDate=" + orderDate
+				+ ", vendor=" + vendor + ", itemName=" + itemName + ", user=" + user + "]";
 	}
+
+
 
 }

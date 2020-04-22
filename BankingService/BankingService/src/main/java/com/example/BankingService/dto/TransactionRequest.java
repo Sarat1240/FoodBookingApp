@@ -1,29 +1,20 @@
-package com.example.DesignYourDelicacy.entity;
+package com.example.BankingService.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
 
-@Entity
-@Table(name="transaction")
-public class Transaction {
+public class TransactionRequest {
 
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long tid;
 	
 	private int amount;
 	
-	private int price;
-	
 	private long userid;
+	
+	private int price;
 	
 	private long cardNumber;
 	
-	private String cvv;
+	private int cvv;
 	
 	private String expdate;
 	
@@ -54,18 +45,26 @@ public class Transaction {
 	}
 
 
-	public String getCvv() {
+	public int getCvv() {
 		return cvv;
 	}
 
-	public void setCvv(String cvv) {
+	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
 
+	
+
+	/**
+	 * @return the expdate
+	 */
 	public String getExpdate() {
 		return expdate;
 	}
 
+	/**
+	 * @param expdate the expdate to set
+	 */
 	public void setExpdate(String expdate) {
 		this.expdate = expdate;
 	}
@@ -93,6 +92,22 @@ public class Transaction {
 	}
 
 	/**
+	 * @return the cardNumber
+	 */
+	public long getCardNumber() {
+		return cardNumber;
+	}
+
+	/**
+	 * @param cardNumber the cardNumber to set
+	 */
+	public void setCardNumber(long cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	
+	
+
+	/**
 	 * @return the price
 	 */
 	public int getPrice() {
@@ -106,35 +121,11 @@ public class Transaction {
 		this.price = price;
 	}
 
-	/**
-	 * @return the cardNumber
-	 */
-	public long getCardNumber() {
-		return cardNumber;
-	}
-
-	/**
-	 * @param cardNumber the cardNumber to set
-	 */
-	public void setCardNumber(long cardNumber) {
-		this.cardNumber = cardNumber;
-		
-		
-	}
-
 	@Override
 	public String toString() {
-		return "Transaction [tid=" + tid + ", amount=" + amount + ", price=" + price + ", userid=" + userid
+		return "Transaction [tid=" + tid + ", amount=" + amount + ", userid=" + userid + ", price=" + price
 				+ ", cardNumber=" + cardNumber + ", cvv=" + cvv + ", expdate=" + expdate + ", accountno=" + accountno
 				+ "]";
 	}
-	
-	
-	
 
-
-	
-	
-	
-	
 }

@@ -43,13 +43,17 @@ public class FoodServiceImpl implements FoodService {
 		// TODO Auto-generated method stub
 		return vendorRepo.findByVendorNameAndItemName(vendorname,item);
 	}
+	/*
+	 * @Override public ResponseEntity<Transaction> debitAccount(Transaction trans)
+	 * { // TODO Auto-generated method stub return
+	 * bankingFeignClient.debitAccount(trans); }
+	 */
 
 	@Override
 	public ResponseEntity<Transaction> debitAccount(Transaction trans) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 
 }

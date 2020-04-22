@@ -1,5 +1,8 @@
-package com.example.DesignYourDelicacy.entity;
+package com.example.BankingService.entity;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,17 +20,21 @@ public class Transaction {
 	
 	private int amount;
 	
-	private int price;
-	
 	private long userid;
+	
+	private int price;
 	
 	private long cardNumber;
 	
 	private String cvv;
 	
-	private String expdate;
+	private Date expdate;
 	
 	private String accountno;
+	
+	private long currentBalance;
+	
+	private String transactionDate;
 
 	public long getTransid() {
 		return tid;
@@ -62,11 +69,19 @@ public class Transaction {
 		this.cvv = cvv;
 	}
 
-	public String getExpdate() {
+	
+
+	/**
+	 * @return the expdate
+	 */
+	public Date getExpdate() {
 		return expdate;
 	}
 
-	public void setExpdate(String expdate) {
+	/**
+	 * @param expdate the expdate to set
+	 */
+	public void setExpdate(Date expdate) {
 		this.expdate = expdate;
 	}
 
@@ -93,6 +108,22 @@ public class Transaction {
 	}
 
 	/**
+	 * @return the cardNumber
+	 */
+	public long getCardNumber() {
+		return cardNumber;
+	}
+
+	/**
+	 * @param cardNumber the cardNumber to set
+	 */
+	public void setCardNumber(long cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	
+	
+
+	/**
 	 * @return the price
 	 */
 	public int getPrice() {
@@ -106,35 +137,43 @@ public class Transaction {
 		this.price = price;
 	}
 
+	
 	/**
-	 * @return the cardNumber
+	 * @return the currentBalance
 	 */
-	public long getCardNumber() {
-		return cardNumber;
+	public long getCurrentBalance() {
+		return currentBalance;
 	}
 
 	/**
-	 * @param cardNumber the cardNumber to set
+	 * @param currentBalance the currentBalance to set
 	 */
-	public void setCardNumber(long cardNumber) {
-		this.cardNumber = cardNumber;
-		
-		
+	public void setCurrentBalance(long currentBalance) {
+		this.currentBalance = currentBalance;
+	}
+	
+	
+
+	/**
+	 * @return the transactionDate
+	 */
+	public String getTransactionDate() {
+		return transactionDate;
+	}
+
+	/**
+	 * @param transactionDate the transactionDate to set
+	 */
+	public void setTransactionDate(String transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Transaction [tid=" + tid + ", amount=" + amount + ", price=" + price + ", userid=" + userid
+		return "Transaction [tid=" + tid + ", amount=" + amount + ", userid=" + userid + ", price=" + price
 				+ ", cardNumber=" + cardNumber + ", cvv=" + cvv + ", expdate=" + expdate + ", accountno=" + accountno
-				+ "]";
+				+ ", currentBalance=" + currentBalance + ", transactionDate=" + transactionDate + "]";
 	}
-	
-	
-	
 
 
-	
-	
-	
-	
 }

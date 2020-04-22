@@ -30,12 +30,12 @@ public class User {
 	private String location;
 	private String gender;
 	private long phoneNum;
-	private String pwd;
+
 
 	
 	@OneToMany(mappedBy ="user" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Order> orderList  = new ArrayList<Order>();
+	private List<OrderDetails> orderList  = new ArrayList<OrderDetails>();
 
 
 	/**
@@ -121,7 +121,7 @@ public class User {
 	/**
 	 * @return the orderList
 	 */
-	public List<Order> getOrderList() {
+	public List<OrderDetails> getOrderList() {
 		return orderList;
 	}
 
@@ -129,7 +129,7 @@ public class User {
 	/**
 	 * @param orderList the orderList to set
 	 */
-	public void setOrderList(List<Order> orderList) {
+	public void setOrderList(List<OrderDetails> orderList) {
 		this.orderList = orderList;
 	}
 
@@ -142,22 +142,6 @@ public class User {
 	}
 	
 	
-
-	/**
-	 * @return the pwd
-	 */
-	public String getPwd() {
-		return pwd;
-	}
-
-
-	/**
-	 * @param pwd the pwd to set
-	 */
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
 
 	@Override
 	public String toString() {

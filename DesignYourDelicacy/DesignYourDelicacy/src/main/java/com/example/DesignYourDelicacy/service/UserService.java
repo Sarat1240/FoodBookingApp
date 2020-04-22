@@ -9,7 +9,7 @@ public interface UserService {
 
 	String registeruser(UserDto userDto);
 
-	String verifyUser(String username,String pwd);
+	String verifyUser(String username);
 
 	
 	

@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 		User u = new User();
 		u.setId(userDto.getId());
 		u.setName(userDto.getName());
-		u.setPwd(userDto.getPwd());
 		u.setGender(userDto.getGender());
 		u.setLocation(userDto.getLocation());
 		u.setPhoneNum(userDto.getPhoneNum());
@@ -49,9 +48,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String verifyUser(String username,String pwd) {
+	public String verifyUser(String username) {
 		// TODO Auto-generated method stub
-		Optional<User>  u = userRepository.findByNameAndPwd(username,pwd);
+		Optional<User>  u = userRepository.findByName(username);
 		if(u.isPresent())
 			return "exists";
 		else

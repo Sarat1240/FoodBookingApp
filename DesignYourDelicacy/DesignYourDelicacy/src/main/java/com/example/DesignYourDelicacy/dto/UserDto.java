@@ -4,7 +4,6 @@ public class UserDto {
 
 	private int id;
 	private String name;
-	private String pwd;
 	private String location;
 	private String gender;
 	private long phoneNum;
@@ -31,18 +30,6 @@ public class UserDto {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-	/**
-	 * @return the pwd
-	 */
-	public String getPwd() {
-		return pwd;
-	}
-	/**
-	 * @param pwd the pwd to set
-	 */
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
 	}
 	/**
 	 * @return the location
@@ -82,7 +69,7 @@ public class UserDto {
 	}
 	@Override
 	public String toString() {
-		return "UserDto [id=" + id + ", name=" + name + ", pwd=" + pwd + ", location=" + location + ", gender=" + gender
+		return "UserDto [id=" + id + ", name=" + name + ", location=" + location + ", gender=" + gender
 				+ ", phoneNum=" + phoneNum + "]";
 	}
 	

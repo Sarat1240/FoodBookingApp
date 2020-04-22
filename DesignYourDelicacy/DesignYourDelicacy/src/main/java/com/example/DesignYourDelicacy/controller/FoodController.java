@@ -26,11 +26,11 @@ public class FoodController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value="/{vendorName}/{username}/{pwd}")
-	public ResponseEntity<List<VendorMenu>> searchVendor(@PathVariable String vendorName,@PathVariable String username,@PathVariable String  pwd)
+	@GetMapping(value="/{vendorName}/{username}")
+	public ResponseEntity<List<VendorMenu>> searchVendor(@PathVariable String vendorName,@PathVariable String username)
 	{
 	
-		String status = userService.verifyUser(username,pwd);
+		String status = userService.verifyUser(username);
 		
 		if("not exists".equals(status))
 			throw new UserNotFoundException("You are not a valid user to search the vendor name");

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.DesignYourDelicacy.entity.Transaction;
 import com.example.DesignYourDelicacy.entity.VendorMenu;
 import com.example.DesignYourDelicacy.exception.UserNotFoundException;
+import com.example.DesignYourDelicacy.exception.VendorNotFoundException;
 import com.example.DesignYourDelicacy.feignclient.BankingFeignClient;
 import com.example.DesignYourDelicacy.service.FoodService;
 import com.example.DesignYourDelicacy.service.OrderService;
@@ -31,28 +32,30 @@ public class OrderController {
 	@Autowired
 	private  FoodService foodService;
 	
-	@PostMapping(value="/{vendorName}/{itemName}/{username}/{pwd}/{cardNumber}/{cvv}/{expdate}")
-	public void orderItems(@PathVariable String vendorName,@PathVariable String itemName,@PathVariable String username,@PathVariable String  pwd,@RequestBody Transaction trans)
+	@PostMapping(value="/{vendorName}/{itemName}/{username}")
+	public void orderItems(@PathVariable String vendorName,@PathVariable String itemName,@PathVariable String username,@RequestBody Transaction trans)
 	{
-		
-		String status = userService.verifyUser(username,pwd);
-		
-		if("not exists".equals(status))
-			throw new UserNotFoundException("You are not a valid user to search the vendor name");
- 
-		VendorMenu vendor = foodService.searchByVendorAndItem(vendorName, itemName);
-		int itemPrice = vendor.getPrice();
-		
-		if(vendor!=null)
+		String status = userService.verifyUser(username);
+		if("exists".equals(status))
 		{
-			foodService.debitAccount(trans);
-			//bankingFeignClient.debitAccount();
-			
-		   // orderService.orderItems(vendorName);
-		    
-		}
-
+			VendorMenu vendor = foodService.searchByVendorAndItem(vendorName, itemName);
+			if(vendor!=null)
+			{
+			int itemPrice = vendor.getPrice();			
+				orderService.orderFood(trans,itemPrice,vendorName,itemName);
+			//	foodService.debitAccount(trans);
+				    
+			}
+			else
+			{
+				throw new VendorNotFoundException("Given Vendor details doesn't match. Please try again with different details");
+			}
 		
+		}
+		else		
+			throw new UserNotFoundException("You are not a valid user");
+		
+			
 		
 		
 	}

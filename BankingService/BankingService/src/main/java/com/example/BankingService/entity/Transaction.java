@@ -2,7 +2,6 @@ package com.example.BankingService.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,76 +21,11 @@ public class Transaction {
 	
 	private long userid;
 	
-	private int price;
-	
 	private long cardNumber;
-	
-	private String cvv;
-	
-	private Date expdate;
-	
-	private String accountno;
 	
 	private long currentBalance;
 	
 	private String transactionDate;
-
-	public long getTransid() {
-		return tid;
-	}
-
-	public void setTransid(long transid) {
-		this.tid = transid;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public long getUserid() {
-		return userid;
-	}
-
-	public void setUserid(long userid) {
-		this.userid = userid;
-	}
-
-
-	public String getCvv() {
-		return cvv;
-	}
-
-	public void setCvv(String cvv) {
-		this.cvv = cvv;
-	}
-
-	
-
-	/**
-	 * @return the expdate
-	 */
-	public Date getExpdate() {
-		return expdate;
-	}
-
-	/**
-	 * @param expdate the expdate to set
-	 */
-	public void setExpdate(Date expdate) {
-		this.expdate = expdate;
-	}
-
-	public String getAccountno() {
-		return accountno;
-	}
-
-	public void setAccountno(String accountno) {
-		this.accountno = accountno;
-	}
 
 	/**
 	 * @return the tid
@@ -108,6 +42,34 @@ public class Transaction {
 	}
 
 	/**
+	 * @return the amount
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the userid
+	 */
+	public long getUserid() {
+		return userid;
+	}
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+
+	/**
 	 * @return the cardNumber
 	 */
 	public long getCardNumber() {
@@ -120,24 +82,7 @@ public class Transaction {
 	public void setCardNumber(long cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-	
-	
 
-	/**
-	 * @return the price
-	 */
-	public int getPrice() {
-		return price;
-	}
-
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	
 	/**
 	 * @return the currentBalance
 	 */
@@ -151,8 +96,6 @@ public class Transaction {
 	public void setCurrentBalance(long currentBalance) {
 		this.currentBalance = currentBalance;
 	}
-	
-	
 
 	/**
 	 * @return the transactionDate
@@ -162,7 +105,7 @@ public class Transaction {
 	}
 
 	/**
-	 * @param transactionDate the transactionDate to set
+	 * @param transactionDate the transactionDate to set 
 	 */
 	public void setTransactionDate(String transactionDate) {
 		this.transactionDate = transactionDate;
@@ -170,10 +113,10 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [tid=" + tid + ", amount=" + amount + ", userid=" + userid + ", price=" + price
-				+ ", cardNumber=" + cardNumber + ", cvv=" + cvv + ", expdate=" + expdate + ", accountno=" + accountno
+		return "Transaction [tid=" + tid + ", amount=" + amount + ", userid=" + userid + ", cardNumber=" + cardNumber
 				+ ", currentBalance=" + currentBalance + ", transactionDate=" + transactionDate + "]";
 	}
 
+	
 
 }

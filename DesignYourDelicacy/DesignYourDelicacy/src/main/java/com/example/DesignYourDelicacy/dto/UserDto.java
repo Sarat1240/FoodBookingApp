@@ -1,8 +1,11 @@
 package com.example.DesignYourDelicacy.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
 
 	private int id;
+	@NotNull(message = "Please enter name")
 	private String name;
 	private String location;
 	private String gender;

@@ -1,5 +1,7 @@
 package com.example.DesignYourDelicacy.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,7 @@ public class UserController {
 	
 	
 	@PostMapping
-	public String registeruser(@RequestBody UserDto userDto)
+	public String registeruser( @Valid @RequestBody UserDto userDto)
 	{
 		return userService.registeruser(userDto);
 	}

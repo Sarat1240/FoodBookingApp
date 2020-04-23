@@ -15,29 +15,16 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long tid;
-	
-	private int amount;
-	
-	private int price;
-	
 	private long userid;
-	
-	
 	private long cardNumber;
-	
 	//@NotBlank(message = "Please enter cvv")
 	private String cvv;
-	
 	//@NotBlank(message = "Please enter expdate")
 	private String expdate;
-	
-	private String accountno;
-	
 	private String vendorId;
-	
 	private String itemName;
-	
 	private String transactiondate;
+	private int price; 
 
 	public long getTransid() {
 		return tid;
@@ -45,14 +32,6 @@ public class Transaction {
 
 	public void setTransid(long transid) {
 		this.tid = transid;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 
 	public long getUserid() {
@@ -80,13 +59,6 @@ public class Transaction {
 		this.expdate = expdate;
 	}
 
-	public String getAccountno() {
-		return accountno;
-	}
-
-	public void setAccountno(String accountno) {
-		this.accountno = accountno;
-	}
 
 	/**
 	 * @return the tid
@@ -100,20 +72,6 @@ public class Transaction {
 	 */
 	public void setTid(long tid) {
 		this.tid = tid;
-	}
-
-	/**
-	 * @return the price
-	 */
-	public int getPrice() {
-		return price;
-	}
-
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	/**
@@ -173,19 +131,29 @@ public class Transaction {
 	public void setTransactiondate(String transactiondate) {
 		this.transactiondate = transactiondate;
 	}
+	
+	
+
+	/**
+	 * @return the price
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	@Override
 	public String toString() {
-		return "Transaction [tid=" + tid + ", amount=" + amount + ", price=" + price + ", userid=" + userid
-				+ ", cardNumber=" + cardNumber + ", cvv=" + cvv + ", expdate=" + expdate + ", accountno=" + accountno
-				+ ", vendorId=" + vendorId + ", itemName=" + itemName + ", transactiondate=" + transactiondate + "]";
+		return "Transaction [tid=" + tid + ", userid=" + userid + ", cardNumber=" + cardNumber + ", cvv=" + cvv
+				+ ", expdate=" + expdate + ", vendorId=" + vendorId + ", itemName=" + itemName + ", transactiondate="
+				+ transactiondate + ", price=" + price + "]";
 	}
-
-
-	
-	
-	
-
 
 	
 	

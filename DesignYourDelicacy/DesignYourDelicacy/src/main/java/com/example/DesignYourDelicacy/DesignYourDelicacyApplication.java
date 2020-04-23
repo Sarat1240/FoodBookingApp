@@ -47,7 +47,7 @@ public class DesignYourDelicacyApplication {
 	@Autowired
 	JobLauncher jobLauncher;
 	
-	@Scheduled(fixedDelay = 8888)
+	@Scheduled(fixedDelay = 88888888)
 	public void performJob() {
 		JobParameters parameters=new JobParametersBuilder()
 				.addString("JobId", String.valueOf(System.currentTimeMillis()))

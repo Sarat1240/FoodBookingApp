@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.BankingService.constants.BankingConstants;
 import com.example.BankingService.dto.TransactionRequest;
 import com.example.BankingService.entity.Transaction;
 import com.example.BankingService.service.BankingService;
-
-
-
 
 @RestController
 @RequestMapping(value = "/banks")
@@ -43,9 +41,8 @@ public class BankController {
 	@PostMapping(value = "/register/{cardNumber}/{cvv}/{expirydate}")
 	public String registerAccount(@Valid @PathVariable("cardNumber") @NotNull long  cardNumber,@PathVariable("cvv") int cvv,@PathVariable("expirydate") String expirydate)
 	{
-		System.out.println("In Bank COntroller");
 		String status = bankingService.registerAccount(cardNumber,cvv,expirydate);
-		if("Success".equals(status))
+		if(BankingConstants.SUCCESS.equals(status))
 			return "Account Created Successfully";
 		else
 			return "Account was not created";
@@ -59,9 +56,9 @@ public class BankController {
 	}
 	
 	@GetMapping("/statement/{month}")
-	public ResponseEntity<List<Transaction>> fetchStatement(@PathVariable String month)
+	public ResponseEntity<List<Transaction>> fetchMonthlyStatement(@PathVariable String month)
 	{
-		 List<Transaction>  txList  = bankingService.fetchStatement(month);
+		 List<Transaction>  txList  = bankingService.fetchMonthlyStatement(month);
 		 return new ResponseEntity<List<Transaction>> (txList,new HttpHeaders(),HttpStatus.OK);
 	}
 	

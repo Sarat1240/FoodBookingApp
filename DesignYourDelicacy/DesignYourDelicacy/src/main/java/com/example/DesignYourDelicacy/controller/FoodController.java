@@ -26,7 +26,7 @@ public class FoodController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value="/{vendorName}/{username}")
+	@GetMapping(value="search/{vendorName}/{username}")
 	public ResponseEntity<List<VendorMenu>> searchVendor(@PathVariable String vendorName,@PathVariable String username)
 	{
 	
@@ -50,9 +50,9 @@ public class FoodController {
 	
 	}
 	@GetMapping(value="/{vendorName}/{item}")
-	public ResponseEntity<VendorMenu> searchByVendorAndItem(String vendorname, String item)
+	public ResponseEntity<VendorMenu> searchByVendorAndItem(@PathVariable String vendorName, @PathVariable String item)
 	{
-		VendorMenu vm =  foodService.searchByVendorAndItem(vendorname, item);
+		VendorMenu vm =  foodService.searchByVendorAndItem(vendorName, item);
 		
 		  return new ResponseEntity<VendorMenu>(vm,new HttpHeaders(),HttpStatus.OK);
 	}

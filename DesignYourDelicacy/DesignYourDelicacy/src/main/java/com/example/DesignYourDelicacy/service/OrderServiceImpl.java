@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.DesignYourDelicacy.dto.TransactionRequest;
 import com.example.DesignYourDelicacy.entity.OrderDetails;
 import com.example.DesignYourDelicacy.entity.Transaction;
 import com.example.DesignYourDelicacy.entity.User;
@@ -26,13 +27,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private BankingFeignClient bankingFeignClient;
-	
+
 	@Autowired
 	private TransactionRepository transactionRepository;
 
@@ -43,66 +44,75 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void orderFood(Transaction trans, int itemPrice, String vName, String iName) {
+	public long orderFood(TransactionRequest transReq, int itemPrice, String vName, String iName) {
+		
+		Transaction  transactionEntity = convertReqToEntity(transReq);
 		OrderDetails order = new OrderDetails();
-		Optional<User> user = userRepository.findById((int) trans.getUserid());
-		if(user.isPresent())
-		{
+		int orderId;
+		Optional<User> user = userRepository.findById((int) transactionEntity.getUserid());
+		if (user.isPresent()) {
 			User u = user.get();
-			trans.setPrice(itemPrice);
-			ResponseEntity<Transaction> res = bankingFeignClient.debitAccount(trans);
+			transactionEntity.setPrice(itemPrice);
+			ResponseEntity<Transaction> res = bankingFeignClient.debitAccount(transactionEntity);
 			System.out.println("--------------------------------------------------------");
 			System.out.println("Transaction Object in Food Booking App:" + res);
 			System.out.println("--------------------------------------------------------");
-			if (res.getBody().getTid() != 0)
-			{
-				System.out.println("Transaction in Order Service:" + trans);
+			if (res.getBody().getTid() != 0) {
+				System.out.println("Transaction in Order Service:" + transactionEntity);
 
 				order.setItemName(iName);
 				order.setOrderAmount(itemPrice);
 				order.setVendor(vName);
 				order.setOrderDate(new Date().toString());
-			
-				
-				  
-				  ArrayList<OrderDetails> olist = new ArrayList<OrderDetails>();
-				  olist.add(order);
-				  u.setOrderList(olist);
-					order.setUser(u);
-				 
-				 
-				 
-				userRepository.save(u);
-			//	order.setUser(user);
-			//	OrderDetails savedOrder = orderRepository.save(order);
+
+				ArrayList<OrderDetails> olist = new ArrayList<OrderDetails>();
+				olist.add(order);
+				u.setOrderList(olist);
+				order.setUser(u);
+
+				User u1 = userRepository.save(u);
+				System.out.println("Order ID:"+u1.getOrderList().get(0).getOrderId());
+				orderId = u1.getOrderList().get(0).getOrderId();
+				// order.setUser(user);
+				// OrderDetails savedOrder = orderRepository.save(order);
 				/*
 				 * if(savedOrder!=null) { Transaction t = new Transaction(); t.set }
 				 */
-				
+
 				Transaction t = new Transaction();
 				t.setVendorId(vName);
 				t.setItemName(iName);
-				t.setAmount(itemPrice);
-				t.setCardNumber(trans.getCardNumber());
-				t.setCvv(trans.getCvv());
-				t.setExpdate(trans.getExpdate());
+				t.setPrice(itemPrice);
+				t.setCardNumber(transactionEntity.getCardNumber());
+				t.setCvv(transactionEntity.getCvv());
+				t.setExpdate(transactionEntity.getExpdate());
 				t.setUserid(u.getId());
 				t.setTransactiondate(new Date().toString());
-				
-				transactionRepository.save(t);
-			} 
-			else
-			{
+
+				 transactionRepository.save(t);
+			} else {
 				throw new PaymentFailedException("Payment failed at payment service");
 			}
-		}
-		else
-		{
+		} else {
 			throw new UserNotFoundException("There is no user with given details. So could not place order");
 		}
-		
-		
-			}
+		return orderId;
+	}
 
+	@Override
+	public List<OrderDetails> getlatestOrders(int userId) {
+		// TODO Auto-generated method stub
+		return orderRepository.getlatestOrders(userId);
+	}
 	
+	public Transaction convertReqToEntity(TransactionRequest treq)
+	{
+		Transaction transaction = new Transaction();
+		transaction.setCardNumber(treq.getCardNumber());
+		transaction.setCvv(treq.getCvv());
+		transaction.setExpdate(treq.getExpdate());
+		transaction.setUserid(treq.getUserid());
+		return transaction;
+	}
+
 }

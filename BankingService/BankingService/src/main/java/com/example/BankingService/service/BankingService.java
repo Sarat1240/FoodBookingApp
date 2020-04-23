@@ -14,7 +14,7 @@ public interface BankingService {
 
 	ResponseEntity<Transaction> debitAccount(TransactionRequest trans);
 
-	List<Transaction> fetchStatement(String month);
+	List<Transaction> fetchMonthlyStatement(String month);
 
 	List<Transaction> fetchRecentTransactions();
 	

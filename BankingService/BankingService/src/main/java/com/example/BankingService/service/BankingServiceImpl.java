@@ -9,16 +9,17 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.BankingService.constants.BankingConstants;
 import com.example.BankingService.dto.TransactionRequest;
 import com.example.BankingService.entity.Account;
 import com.example.BankingService.entity.Transaction;
 import com.example.BankingService.exception.CardNotFoundException;
+import com.example.BankingService.exception.InsufficientFundsException;
 import com.example.BankingService.repo.AccountRepository;
 import com.example.BankingService.repo.BankRepository;
 import com.example.BankingService.repo.TransactionRepository;
@@ -38,8 +39,8 @@ public class BankingServiceImpl implements BankingService {
 	TransactionRepository transactionRepository;
 
 	@Override
-	public String registerAccount(long cardNumber, int cvv, String expiryDate) {
-		// TODO Auto-generated method stub
+	public String registerAccount(long cardNumber, int cvv, String expiryDate)
+	{
 		Account account = new Account();
 		account.setAccountNumber(getAccountNumber());
 		account.setCardNumber(cardNumber);
@@ -49,16 +50,16 @@ public class BankingServiceImpl implements BankingService {
 		 * try { account.setExpiryDate(formatDate(expiryDate)); } catch (ParseException
 		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
-		account.setAccountType("Savings");
-		account.setOpeningBalance(10000);
-		account.setCurrentBalance(10000);
+		account.setAccountType(BankingConstants.SAVINGS);
+		account.setOpeningBalance(BankingConstants.OPENING_BALANCE);
+		account.setCurrentBalance(BankingConstants.OPENING_BALANCE);
 
 		Account acc = bankRepository.save(account);
 		if (acc != null)
-			return "Success";
+			return BankingConstants.SUCCESS;
 		else
 
-			return "Failure";
+			return BankingConstants.FAILURE;
 
 	}
 
@@ -93,25 +94,30 @@ public class BankingServiceImpl implements BankingService {
 		{
 			System.out.println("account details are:"+acc);
 			Account a = acc.get();
-			a.setCurrentBalance(a.getCurrentBalance()-trans.getPrice());
-			accountRepository.save(a);
-			
-			Transaction tx = new Transaction();
-			tx.setCardNumber(trans.getCardNumber());
-			tx.setAmount(trans.getPrice());
-			tx.setCurrentBalance(a.getCurrentBalance()-trans.getPrice());
-			tx.setTransactionDate(new Date().toString());
-			tx.setUserid(trans.getUserid());
-			 t = transactionRepository.save(tx);
+			if(a.getCurrentBalance()>=trans.getPrice())
+			{
+				a.setCurrentBalance(a.getCurrentBalance()-trans.getPrice());
+				accountRepository.save(a);
+				
+				Transaction tx = new Transaction();
+				tx.setCardNumber(trans.getCardNumber());
+				tx.setAmount(trans.getPrice());
+				tx.setCurrentBalance(a.getCurrentBalance()-trans.getPrice());
+				tx.setTransactionDate(new Date().toString());
+				tx.setUserid(trans.getUserid());
+				 t = transactionRepository.save(tx);
+			}
+			else
+			throw new InsufficientFundsException("There is no sufficient balance to place order.");
 			
 		}
 		else
 		    throw new CardNotFoundException("Provided invalid Card or Cvv or Expired date details");
-		return new ResponseEntity<Transaction>(t,HttpStatus.CREATED);
+		return new ResponseEntity<Transaction>(t,HttpStatus.OK);
 	}
 
 	@Override
-	public List<Transaction> fetchStatement(String month) {
+	public List<Transaction> fetchMonthlyStatement(String month) {
 		return transactionRepository.fetchStatementByMonth(month);
 	
 	}
